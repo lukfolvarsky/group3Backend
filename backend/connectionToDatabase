@@ -1,0 +1,13 @@
+const { Client } = require('pg');
+
+const client = new Client({
+  host: 'dpg-cg15jgndvk4ronsdkmrg-a',
+  user: 'groupthree_user',
+  port: 5432,
+  password: '8O6MM5AQCRUIGt0OUvV00kllGBaQskoD',
+  database: 'groupthree'
+});
+
+client.connect();
+
+module.exports = client;
