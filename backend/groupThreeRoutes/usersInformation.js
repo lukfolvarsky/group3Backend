@@ -3,6 +3,26 @@ const client = require('../connectionToDatabase');
 
 const router = express.Router();
 
+//testing apis
+//http://localhost:3301/usersInformation/test
+router.get('/test', (req, res) => {
+  const uid = req.query.uid;
+  client.query(
+    `SELECT * from users`,
+    (err, result) => {
+      if (!err) {
+        res.send(result.rows);
+      }
+      client.end(); // Disconnect the client after the query is executed
+    }
+  );
+});
+
+
+
+
+
+
 //Example of running query:
 //  http://localhost:3301/usersInformation/users/chronotype/results?uid=1234abcd
 // YOu can change the UID by replacing '1234acbd'

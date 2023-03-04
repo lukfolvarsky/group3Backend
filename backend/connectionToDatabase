@@ -1,12 +1,11 @@
+
 const { Client } = require('pg');
 
 const client = new Client({
-  host: 'dpg-cg15jgndvk4ronsdkmrg-a.ohio-postgres.render.com',
-  user: 'groupthree_user',
-  port: 5432,
-  password: '8O6MM5AQCRUIGt0OUvV00kllGBaQskoD',
-  database: 'groupthree',
-  ssl: true
+  connectionString: 'postgres://groupthree_user:8O6MM5AQCRUIGt0OUvV00kllGBaQskoD@dpg-cg15jgndvk4ronsdkmrg-a.ohio-postgres.render.com:5432/groupthree',
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 client.connect();
