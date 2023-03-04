@@ -8,6 +8,6 @@ app.use(bodyParser.json());
 
 app.use('/usersInformation', chronoUsers);
 
-app.listen(5432, () => {
-  console.log('Server is now listening at port 5432');
+app.listen(3301, () => {
+  console.log('Server is now listening at port 3301');
 });
