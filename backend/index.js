@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const chronoUsers = require('./groupThreeRoutes/usersInformation.js');
-const googleAccessToken = require("./routes/googleAccessToken.js")
+const googleAccessToken = require("./groupThreeRoutes/googleAccessToken.js")
 const cors = require("cors");
 
 const app = express();

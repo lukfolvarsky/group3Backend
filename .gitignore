@@ -4,3 +4,4 @@ node_modules/*
 
 images/*
 !images/.gitkeep
+backend/node_modules/
