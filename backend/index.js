@@ -9,7 +9,11 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://main.d2ak5nwd8iozq1.amplifyapp.com'
+};
+
+app.use(cors(corsOptions));
 
 app.use('/usersInformation', chronoUsers);
 app.use('/gcal', googleCalendar);
