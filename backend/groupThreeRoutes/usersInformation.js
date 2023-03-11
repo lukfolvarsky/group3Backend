@@ -1,6 +1,5 @@
 const express = require('express');
 const client = require('../connectionToDatabase');
-
 const router = express.Router();
 
 //testing apis
@@ -97,11 +96,4 @@ router.put('/update/user/chronotype', (req, res) => {
 });
 
     
-    
-    
-    
-    
-
-
-
 module.exports = router;
