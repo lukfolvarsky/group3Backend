@@ -96,4 +96,36 @@ router.put('/update/user/chronotype', (req, res) => {
 });
 
     
+     //Get satisfaction scores for users
+  router.get('/users/satisfaction/scores', (req, res) => {
+    const uid = req.query.uid;
+    client.query(
+      `Select * from SATISFACTION where user_id in(Select users.id from users where uid = $1) ORDER BY upload_date ASC`,
+      [uid],
+      (err, result) => {
+        if (!err) {
+          res.send(result.rows);
+        }
+      }
+    );
+  });
+
+  router.post('/insert/satisfaction/score', (req, res) => {
+    const reqInfo = req.body;
+    client.query(`INSERT INTO SATISFACTION(user_id, score, upload_date) 
+    VALUES  (${reqInfo.user_id}, ${reqInfo.score}, CURRENT_DATE)`, (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send('Error inserting user');
+      } else {
+        res.status(200).send('User inserted successfully');
+      }
+    });
+  });
+    
+    
+    
+
+
+
 module.exports = router;
