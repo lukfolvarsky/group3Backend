@@ -13,7 +13,13 @@ const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URL = process.env.GOOGLE_REDIRECT_URL;
 const client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
-// Get a list the user's Google Calendars
+/**
+ * Retrieves a list of a user's Google Calendars.
+ * @async
+ * @function
+ * @param {string} user_id - The user's ID.
+ * @returns {Promise} - A Promise that resolves to an array of calendar IDs.
+ */
 async function getCalendarList(user_id) {
     const token = await getGoogleAccessToken(user_id);
     client.setCredentials({ access_token: token });
@@ -34,7 +40,13 @@ async function getCalendarList(user_id) {
     }
   };
 
-// Get a list of all events for all of a user's calendars
+/**
+ * Retrieves a list of all events for all of a user's Google Calendars.
+ * @async
+ * @function
+ * @param {string} user_id - The user's ID.
+ * @returns {Promise} - A Promise that resolves to an array of event objects.
+ */
 async function getAllEventsForAllCalendars(user_id) {
     const token = await getGoogleAccessToken(user_id);
     const calendarIds = await getCalendarList(user_id);
@@ -78,7 +90,13 @@ async function getAllEventsForAllCalendars(user_id) {
     });
 }
 
-// Get a list of all of the user's meetings
+/**
+ * Retrieves a list of a user's meetings.
+ * @async
+ * @function
+ * @param {string} user_id - The user's ID.
+ * @returns {Promise} - A Promise that resolves to an array of meeting objects.
+ */
 async function getMeetings(user_id) {
     const events = await getAllEventsForAllCalendars(user_id);
     const meetings = events.filter((event) => {
@@ -90,7 +108,12 @@ async function getMeetings(user_id) {
     return meetings
 };
 
-// Format calendar object time to be human-readable
+/**
+ * Formats a date object to a human-readable time string.
+ * @function
+ * @param {Date} date - The date object to format.
+ * @returns {string} - A human-readable time string.
+ */
 function formatTime(date) {
     let hour = date.getHours();
     let minute = date.getMinutes();
@@ -110,7 +133,13 @@ function formatTime(date) {
     return `${hour}:${minute} ${amPm}`;
 };
 
-// Get the average start time for the user's calendar events
+/**
+ * Retrieves the average start time for a user's Google Calendar events.
+ * @async
+ * @function
+ * @param {string} user_id - The user's ID.
+ * @returns {Promise} - A Promise that resolves to a human-readable time string.
+ */
 async function getAverageStartTime(user_id){
     const events = await getAllEventsForAllCalendars(user_id);
     let totalStartTime = 0;
