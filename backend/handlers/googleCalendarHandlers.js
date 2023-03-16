@@ -13,6 +13,7 @@ const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URL = process.env.GOOGLE_REDIRECT_URL;
 const client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
+// Get a list the user's Google Calendars
 async function getCalendarList(user_id) {
     const token = await getGoogleAccessToken(user_id);
     client.setCredentials({ access_token: token });
@@ -33,6 +34,7 @@ async function getCalendarList(user_id) {
     }
   };
 
+// Get a list of all events for all of a user's calendars
 async function getAllEventsForAllCalendars(user_id) {
     const token = await getGoogleAccessToken(user_id);
     const calendarIds = await getCalendarList(user_id);
@@ -76,6 +78,7 @@ async function getAllEventsForAllCalendars(user_id) {
     });
 }
 
+// Get a list of all of the user's meetings
 async function getMeetings(user_id) {
     const events = await getAllEventsForAllCalendars(user_id);
     const meetings = events.filter((event) => {
@@ -87,6 +90,7 @@ async function getMeetings(user_id) {
     return meetings
 };
 
+// Format calendar object time to be human-readable
 function formatTime(date) {
     let hour = date.getHours();
     let minute = date.getMinutes();
@@ -106,6 +110,7 @@ function formatTime(date) {
     return `${hour}:${minute} ${amPm}`;
 };
 
+// Get the average start time for the user's calendar events
 async function getAverageStartTime(user_id){
     const events = await getAllEventsForAllCalendars(user_id);
     let totalStartTime = 0;

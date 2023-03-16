@@ -2,7 +2,7 @@ const express = require('express');
 const gCalHandlers = require("../handlers/googleCalendarHandlers.js");
 const router = express.Router();
 
-// Get a list of the user's calendars
+// Get a list of the user's calendars by passing in their user id 
 router.get('/calendars/list/:userId', (req, res) => {
     const userId = req.params.userId;
     gCalHandlers.getCalendarList(userId).then(results => {
@@ -12,7 +12,7 @@ router.get('/calendars/list/:userId', (req, res) => {
     });
   });
 
-// Get all of the user's calendar events, for all of their calendars
+// Get all of the user's calendar events, for all of their calendars, by passing in a user id
 router.get('/events/list/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -24,7 +24,7 @@ router.get('/events/list/:userId', async (req, res) => {
   }
 });
 
-// Get all of the user's meetings from their calendar
+// Get all of the user's meetings from their calendar using their user id
 router.get('/events/meetings/:userid', async (req, res) => {
   try {
     const userId = req.params.userid;
@@ -36,7 +36,7 @@ router.get('/events/meetings/:userid', async (req, res) => {
   }
 });
 
-// Get the average start time of the user's calendar events
+// Get the average start time of the user's calendar events by passing in a user id
 router.get('/events/average-start-time/:userid', async (req, res) => {
   try {
     const userId = req.params.userid;

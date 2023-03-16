@@ -15,7 +15,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+
+// Queries related to user information and chronotypes
 app.use('/usersInformation', chronoUsers);
+
+// Queries related the Google Calendar API
 app.use('/gcal', googleCalendar);
 
 app.listen(3301, () => {

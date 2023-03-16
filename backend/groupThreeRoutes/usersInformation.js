@@ -21,7 +21,7 @@ router.get('/test', (req, res) => {
 
 //Example of running query:
 //  http://localhost:3301/usersInformation/users/chronotype/results?uid=1234abcd 
-// YOu can change the UID by replacing '1234acbd' 
+// Get a user's chronotype information from our PostgreSQL DB by passing in their user id
 router.get('/users/chronotype/results', (req, res) => {
     const uid = req.query.uid;
     client.query(
@@ -35,7 +35,7 @@ router.get('/users/chronotype/results', (req, res) => {
     );
   });
 
-  // Check if user exists in the Database
+  // Check if user exists in the Database by passing in their user id
   router.get('/users/exists', (req, res) => {
     const uid = req.query.uid;
     client.query(
@@ -50,7 +50,7 @@ router.get('/users/chronotype/results', (req, res) => {
   });
 
 // http://localhost:3301/usersInformation/users/chronotype/timeline?uid=1234abcd
-// You can change the UID by replacing '1234acbd'
+// Get the timeline that corresponds with the user's chronotype id, acquired by passing in the user's id
 router.get('/users/chronotype/timeline', (req, res) => {
   const uid = req.query.uid;
   client.query(
@@ -66,6 +66,7 @@ router.get('/users/chronotype/timeline', (req, res) => {
 
 //Example of running query:(Need to run in postman due to passing data through with JSON body)
 //  http://localhost:3301/usersInformation/insert/user
+// Add a user to our PostgreSQL DB 
   router.post('/insert/user', (req, res) => {
     const reqInfo = req.body;
     client.query(`INSERT INTO USERS(uid, first_name, last_name, user_email, phone_number, date_of_creation, chronotype_id)
@@ -81,6 +82,7 @@ router.get('/users/chronotype/timeline', (req, res) => {
 
 //Example of running query:(Need to run in postman due to passing data through with JSON body)
 //  http://localhost:3301/usersInformation/update/user/chronotype
+// Update a user's chronotype 
 router.put('/update/user/chronotype', (req, res) => {
   const reqInfo = req.body;
   client.query(`UPDATE users
@@ -96,7 +98,8 @@ router.put('/update/user/chronotype', (req, res) => {
 });
 
     
-     //Get satisfaction scores for users
+  //Get satisfaction scores for users
+  // Get a user's satisfaction scores by passing in a user id
   router.get('/users/satisfaction/scores', (req, res) => {
     const uid = req.query.uid;
     client.query(
@@ -110,6 +113,7 @@ router.put('/update/user/chronotype', (req, res) => {
     );
   });
 
+  // Add a new satisfaction score for a specific user
   router.post('/insert/satisfaction/score', (req, res) => {
     const reqInfo = req.body;
     client.query(`INSERT INTO SATISFACTION(user_id, score, upload_date) 
